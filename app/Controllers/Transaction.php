@@ -12,7 +12,7 @@ class Transaction extends BaseController
 
     public function index()
     {
-        throw new \CodeIgniter\Exceptions\PageNotFoundException('Barang Tidak ditemukan');
+        throw new \CodeIgniter\Exceptions\PageNotFoundException();
     }
 
     public function payment()

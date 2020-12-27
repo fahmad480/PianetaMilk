@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use CodeIgniter\Controller;
 use App\Models\CarouselModel;
+use App\Models\PagesModel;
 
 class Home extends BaseController
 {
@@ -11,6 +12,7 @@ class Home extends BaseController
 	{
 		// Mendeklarasikan class ProductModel menggunakan $this->product
 		$this->carousel = new CarouselModel();
+		$this->pages = new PagesModel();
 		/* Catatan:
         Apa yang ada di dalam function construct ini nantinya bisa digunakan
         pada function di dalam class Product 
@@ -30,6 +32,7 @@ class Home extends BaseController
 	{
 		$data['carousel'] = $this->carousel->getCarousel();
 		$data['title'] = 'About Us';
+		$data['content'] = $this->pages->getPages("aboutus")['content'];
 		echo view('layout/header', $data);
 		echo view('aboutus', $data);
 		echo view('layout/footer', $data);
@@ -39,6 +42,7 @@ class Home extends BaseController
 	{
 		$data['carousel'] = $this->carousel->getCarousel();
 		$data['title'] = 'Bisnis';
+		$data['content'] = $this->pages->getPages("business")['content'];
 		echo view('layout/header', $data);
 		echo view('business', $data);
 		echo view('layout/footer', $data);
@@ -48,6 +52,7 @@ class Home extends BaseController
 	{
 		$data['carousel'] = $this->carousel->getCarousel();
 		$data['title'] = 'Hubungi Kami';
+		$data['content'] = $this->pages->getPages("contactus")['content'];
 		echo view('layout/header', $data);
 		echo view('contactus', $data);
 		echo view('layout/footer', $data);
@@ -57,6 +62,7 @@ class Home extends BaseController
 	{
 		$data['carousel'] = $this->carousel->getCarousel();
 		$data['title'] = 'Sejarah Kami';
+		$data['content'] = $this->pages->getPages("history")['content'];
 		echo view('layout/header', $data);
 		echo view('history', $data);
 		echo view('layout/footer', $data);
@@ -66,6 +72,7 @@ class Home extends BaseController
 	{
 		$data['carousel'] = $this->carousel->getCarousel();
 		$data['title'] = 'Filosofi';
+		$data['content'] = $this->pages->getPages("philosophy")['content'];
 		echo view('layout/header', $data);
 		echo view('philosophy', $data);
 		echo view('layout/footer', $data);
@@ -75,6 +82,7 @@ class Home extends BaseController
 	{
 		$data['carousel'] = $this->carousel->getCarousel();
 		$data['title'] = 'Komitmen & Nilai Utama Kami';
+		$data['content'] = $this->pages->getPages("commitment")['content'];
 		echo view('layout/header', $data);
 		echo view('commitment', $data);
 		echo view('layout/footer', $data);
@@ -84,6 +92,7 @@ class Home extends BaseController
 	{
 		$data['carousel'] = $this->carousel->getCarousel();
 		$data['title'] = 'Peternakan Sapi Kami';
+		$data['content'] = $this->pages->getPages("ourfarm")['content'];
 		echo view('layout/header', $data);
 		echo view('ourfarm', $data);
 		echo view('layout/footer', $data);
@@ -93,6 +102,7 @@ class Home extends BaseController
 	{
 		$data['carousel'] = $this->carousel->getCarousel();
 		$data['title'] = 'Sapi-Sapi Kami';
+		$data['content'] = $this->pages->getPages("cows")['content'];
 		echo view('layout/header', $data);
 		echo view('cows', $data);
 		echo view('layout/footer', $data);
@@ -102,6 +112,7 @@ class Home extends BaseController
 	{
 		$data['carousel'] = $this->carousel->getCarousel();
 		$data['title'] = 'Berlangganan';
+		$data['content'] = $this->pages->getPages("subscribe")['content'];
 		echo view('layout/header', $data);
 		echo view('subscribe', $data);
 		echo view('layout/footer', $data);
