@@ -53,6 +53,7 @@ $routes->get('/admin/aboutus', 'Admin::aboutus');
 $routes->get('/admin/product/add', 'Admin::product_add');
 $routes->get('/admin/product/edit', 'Admin::product_edit');
 $routes->get('/admin/product/disable', 'Admin::product_disable');
+$routes->get('/admin/product/enable', 'Admin::product_enable');
 
 /**
  * --------------------------------------------------------------------

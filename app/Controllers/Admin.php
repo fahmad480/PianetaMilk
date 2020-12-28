@@ -118,7 +118,7 @@ class Admin extends BaseController
     public function products()
     {
         $data['title'] = "Admin Panel - Daftar Produk";
-        $data['products'] = $this->products->getProducts();
+        $data['products'] = $this->products->getProducts(false, false);
         $data['custom_css'] = '<link rel="stylesheet" href="' . base_url('/assets/css/style-admin.css') . '">';
         echo view('admin/layout/header', $data);
         echo view('admin/product', $data);
@@ -145,19 +145,66 @@ class Admin extends BaseController
         echo view('admin/layout/footer', $data);
     }
 
-    public function product_disable()
+    public function product_save()
     {
-        $id = $this->request->getPost('id');
+        $post = $this->request->getPost();
 
         $data = [
-            'title' => 'Hmmm'
+            'title' => $post['nama'],
+            'description' => $post['deskripsi'],
+            'price' => $post['harga'],
+            'stock' => $post['stok'],
+            'status' => 1,
+            'image' => '/assets/img/product-example.jpg'
         ];
 
-        echo $this->products->update_product($data, $id);
+        if ($this->products->insert_product($data)) {
+            return redirect()->to(base_url('/admin/products?status=success&message=Produk+Berhasil+ditambah'));
+        }
+    }
 
-        // if ($ubah) {
-        //     return redirect()->to(base_url('/admin/products'));
-        // }
+    public function product_update()
+    {
+        $post = $this->request->getPost();
+        $get = $this->request->getGet();
+
+        $data = [
+            'title' => $post['nama'],
+            'description' => $post['deskripsi'],
+            'price' => $post['harga'],
+            'stock' => $post['stok'],
+            'status' => 1
+        ];
+
+        if ($this->products->update_product($data, $get['id'])) {
+            return redirect()->to(base_url('/admin/products?status=success&message=Produk+Berhasil+diperbaharui'));
+        }
+    }
+
+    public function product_disable()
+    {
+        $get = $this->request->getGet();
+
+        $data = [
+            'status' => 0
+        ];
+
+        if ($this->products->update_product($data, $get['id'])) {
+            return redirect()->to(base_url('/admin/products?status=success&message=Produk+Berhasil+dinonaktifkan'));
+        }
+    }
+
+    public function product_enable()
+    {
+        $get = $this->request->getGet();
+
+        $data = [
+            'status' => 1
+        ];
+
+        if ($this->products->update_product($data, $get['id'])) {
+            return redirect()->to(base_url('/admin/products?status=success&message=Produk+Berhasil+diaktifkan+kembali'));
+        }
     }
     //--------------------------------------------------------------------
     public function action()
@@ -165,7 +212,7 @@ class Admin extends BaseController
         $get = $this->request->getVar();
         $id = $get['title'];
         $data = [
-            'content' => $get['isi']
+            'content' => htmlentities($get['isi'])
         ];
         if ($this->pages->updates($data, $id)) {
             return redirect()->to("/admin/$id?success=1");

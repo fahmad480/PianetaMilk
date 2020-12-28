@@ -8,10 +8,15 @@ class ProductsModel extends Model
 {
     protected $table = "product";
 
-    public function getProducts($id = false)
+    public function getProducts($id = false, $active = true)
     {
         if ($id === false) {
-            $query = $this->table('product')->get();
+            if ($active) {
+                $query = $this->table('product')->where('status', 1)->get();
+            } else {
+                $query = $this->table('product')->get();
+            }
+
 
             $i = 0;
             foreach ($query->getResultArray() as $row) {

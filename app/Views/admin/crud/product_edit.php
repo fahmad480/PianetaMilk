@@ -1,6 +1,6 @@
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mb-4 mt-4">
     <h1 class="mb-4">Edit Produk</h1>
-    <form action="http://localhost:8080/mahasiswa/store" method="post">
+    <form action="http://localhost:8080/admin/product_update?id=<?= $product['id']; ?>" method="post">
         <label for="nama">Nama : </label><br>
         <input class="form-control" type="text" name="nama" id="nama" placeholder="Nama Produk" value="<?= $product['title']; ?>" required=""><br>
         <label for="deskripsi">Deskripsi : </label><br>

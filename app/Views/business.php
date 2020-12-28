@@ -35,5 +35,5 @@
     <center>
         <h1><?= $title; ?></h1>
     </center><br />
-    <?= $content; ?>
+    <?= html_entity_decode($content); ?>
 </div>
