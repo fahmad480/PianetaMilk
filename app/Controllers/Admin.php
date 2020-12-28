@@ -206,6 +206,56 @@ class Admin extends BaseController
             return redirect()->to(base_url('/admin/products?status=success&message=Produk+Berhasil+diaktifkan+kembali'));
         }
     }
+
+    public function transactions()
+    {
+        $data['title'] = "Admin Panel - Daftar Transaksi";
+        $data['transactions'] = $this->transactions->getTransactions();
+        $data['custom_css'] = '<link rel="stylesheet" href="' . base_url('/assets/css/style-admin.css') . '">';
+        echo view('admin/layout/header', $data);
+        echo view('admin/transactions', $data);
+        echo view('admin/layout/footer', $data);
+    }
+
+    public function transaction_lunas()
+    {
+        $get = $this->request->getGet();
+
+        $data = [
+            'status' => 'lunas'
+        ];
+
+        if ($this->transactions->update_transaction($data, $get['id'])) {
+            return redirect()->to(base_url('/admin/transactions?status=success&message=Transaksi+Berhasil+Dilunaskan'));
+        }
+    }
+
+    public function transaction_batal()
+    {
+        $get = $this->request->getGet();
+
+        $data = [
+            'status' => 'batal'
+        ];
+
+        if ($this->transactions->update_transaction($data, $get['id'])) {
+            return redirect()->to(base_url('/admin/transactions?status=success&message=Transaksi+Berhasil+Dibatalkan'));
+        }
+    }
+
+    public function transaction_refund()
+    {
+        $get = $this->request->getGet();
+
+        $data = [
+            'status' => 'refund'
+        ];
+
+        if ($this->transactions->update_transaction($data, $get['id'])) {
+            return redirect()->to(base_url('/admin/transactions?status=success&message=Transaksi+Berhasil+Direfund'));
+        }
+    }
+
     //--------------------------------------------------------------------
     public function action()
     {

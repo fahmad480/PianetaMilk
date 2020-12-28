@@ -3,7 +3,7 @@
     if (isset($_GET['status'])) :
     ?>
         <div class="alert alert-<?= $_GET['status']; ?> mt-4" role="alert">
-            <?= $_GET['message']; ?>
+            <?= htmlentities($_GET['message']); ?>
         </div>
     <?php endif; ?>
     <a href="<?= base_url('admin/product/add'); ?>"><button class="btn btn-primary mt-4 mb-4">Tambah Produk</button></a>

@@ -55,6 +55,10 @@ $routes->get('/admin/product/edit', 'Admin::product_edit');
 $routes->get('/admin/product/disable', 'Admin::product_disable');
 $routes->get('/admin/product/enable', 'Admin::product_enable');
 
+$routes->get('/admin/transaction/lunas', 'Admin::transaction_lunas');
+$routes->get('/admin/transaction/batal', 'Admin::transaction_batal');
+$routes->get('/admin/transaction/refund', 'Admin::transaction_refund');
+
 /**
  * --------------------------------------------------------------------
  * Additional Routing
