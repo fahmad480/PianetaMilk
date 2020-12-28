@@ -4,12 +4,16 @@ namespace App\Controllers;
 
 use CodeIgniter\Controller;
 use App\Models\PagesModel;
+use App\Models\TransactionsModel;
+use App\Models\ProductsModel;
 
 class Admin extends BaseController
 {
     public function __construct()
     {
         $this->pages = new PagesModel();
+        $this->transactions = new TransactionsModel();
+        $this->products = new ProductsModel();
     }
 
     public function index()
@@ -110,6 +114,50 @@ class Admin extends BaseController
         echo view('admin/layout/header', $data);
         echo view('admin/pages/subscribe', $data);
         echo view('admin/layout/footer', $data);
+    }
+    public function products()
+    {
+        $data['title'] = "Admin Panel - Daftar Produk";
+        $data['products'] = $this->products->getProducts();
+        $data['custom_css'] = '<link rel="stylesheet" href="' . base_url('/assets/css/style-admin.css') . '">';
+        echo view('admin/layout/header', $data);
+        echo view('admin/product', $data);
+        echo view('admin/layout/footer', $data);
+    }
+
+    public function product_add()
+    {
+        $data['title'] = "Admin Panel - Tambah Produk";
+        $data['custom_css'] = '<link rel="stylesheet" href="' . base_url('/assets/css/style-admin.css') . '">';
+        echo view('admin/layout/header', $data);
+        echo view('admin/crud/product_add', $data);
+        echo view('admin/layout/footer', $data);
+    }
+
+    public function product_edit()
+    {
+        $data['product'] = $this->products->getProducts($this->request->getGet())[0];
+        $data['title'] = "Admin Panel - Edit Produk";
+        $data['custom_css'] = '<link rel="stylesheet" href="' . base_url('/assets/css/style-admin.css') . '">';
+        // dd($data);
+        echo view('admin/layout/header', $data);
+        echo view('admin/crud/product_edit', $data);
+        echo view('admin/layout/footer', $data);
+    }
+
+    public function product_disable()
+    {
+        $id = $this->request->getPost('id');
+
+        $data = [
+            'title' => 'Hmmm'
+        ];
+
+        echo $this->products->update_product($data, $id);
+
+        // if ($ubah) {
+        //     return redirect()->to(base_url('/admin/products'));
+        // }
     }
     //--------------------------------------------------------------------
     public function action()

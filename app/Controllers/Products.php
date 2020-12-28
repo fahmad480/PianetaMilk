@@ -173,11 +173,6 @@ EOF;
 		echo view('products/subscribe', $data);
 		echo view('layout/footer', $data);
 	}
-
-	public function payment()
-	{
-		dd($this->request->getVar());
-	}
 	//--------------------------------------------------------------------
 
 }

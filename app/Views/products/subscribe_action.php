@@ -36,7 +36,7 @@
 
 <body class="text-center">
     <form class="centered-screen">
-        <h1>waw</h1>
+        <?= $payment_content; ?>
     </form>
 </body>
 

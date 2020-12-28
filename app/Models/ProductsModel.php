@@ -21,6 +21,7 @@ class ProductsModel extends Model
                 $data[$i]['description'] = $row['description'];
                 $data[$i]['price'] = $row['price'];
                 $data[$i]['stock'] = $row['stock'];
+                $data[$i]['status'] = $row['status'];
                 $data[$i]['review'] = $this->getStars($row['id']);
                 $i++;
             }
@@ -37,6 +38,7 @@ class ProductsModel extends Model
                 $data[$i]['description'] = $row['description'];
                 $data[$i]['price'] = $row['price'];
                 $data[$i]['stock'] = $row['stock'];
+                $data[$i]['status'] = $row['status'];
                 $data[$i]['review'] = $this->getStars($row['id']);
                 $i++;
             }
@@ -73,5 +75,21 @@ class ProductsModel extends Model
             $i++;
         }
         return $data;
+    }
+
+    //-------------------------------[ BAGIAN CRUD PRODUCT ]
+    public function insert_product($data)
+    {
+        return $this->db->table($this->table)->insert($data);
+    }
+
+    public function update_product($data, $id)
+    {
+        return $this->db->table($this->table)->update($data, ['id' => $id]);
+    }
+
+    public function delete_product($id)
+    {
+        return $this->db->table($this->table)->delete(['id' => $id]);
     }
 }

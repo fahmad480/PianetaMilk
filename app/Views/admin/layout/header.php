@@ -45,17 +45,17 @@
                 <div class="position-sticky pt-3">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">
+                            <a class="nav-link" aria-current="page" href="<?= base_url('admin/'); ?>">
                                 <i class="fa fa-home" aria-hidden="true"></i> Dashboard
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">
+                            <a class="nav-link" aria-current="page" href="<?= base_url('admin/products'); ?>">
                                 <i class="fa fa-archive" aria-hidden="true"></i> Daftar Produk
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">
+                            <a class="nav-link" aria-current="page" href="<?= base_url('admin/transactions'); ?>">
                                 <i class="fa fa-history" aria-hidden="true"></i> Riwayat Transaksi
                             </a>
                         </li>
@@ -66,8 +66,8 @@
                     </h6>
                     <ul class="nav flex-column mb-2">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fa fa-motorcycle" aria-hidden="true"></i> Input Data Pengiriman
+                            <a class="nav-link" href="<?= base_url('admin/delivery'); ?>">
+                                <i class="fa fa-motorcycle" aria-hidden="true"></i> Data Pengiriman
                             </a>
                         </li>
                     </ul>
