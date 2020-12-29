@@ -6,6 +6,7 @@ use CodeIgniter\Controller;
 use App\Models\PagesModel;
 use App\Models\TransactionsModel;
 use App\Models\ProductsModel;
+use App\Models\DeliveryModel;
 
 class Admin extends BaseController
 {
@@ -14,6 +15,7 @@ class Admin extends BaseController
         $this->pages = new PagesModel();
         $this->transactions = new TransactionsModel();
         $this->products = new ProductsModel();
+        $this->delivery = new DeliveryModel();
     }
 
     public function index()
@@ -136,7 +138,7 @@ class Admin extends BaseController
 
     public function product_edit()
     {
-        $data['product'] = $this->products->getProducts($this->request->getGet())[0];
+        $data['product'] = $this->products->getProducts($this->request->getGet('id'))[0];
         $data['title'] = "Admin Panel - Edit Produk";
         $data['custom_css'] = '<link rel="stylesheet" href="' . base_url('/assets/css/style-admin.css') . '">';
         // dd($data);
@@ -254,6 +256,27 @@ class Admin extends BaseController
         if ($this->transactions->update_transaction($data, $get['id'])) {
             return redirect()->to(base_url('/admin/transactions?status=success&message=Transaksi+Berhasil+Direfund'));
         }
+    }
+
+    public function delivery()
+    {
+        $data['title'] = "Admin Panel - Daftar Pengantaran";
+        $data['delivery'] = $this->delivery->getDelivery();
+        $data['custom_css'] = '<link rel="stylesheet" href="' . base_url('/assets/css/style-admin.css') . '">';
+        echo view('admin/layout/header', $data);
+        echo view('admin/delivery', $data);
+        echo view('admin/layout/footer', $data);
+    }
+
+    public function delivery_edit()
+    {
+        $data['delivery'] = $this->delivery->getDelivery($this->request->getGet('id'))[0];
+        $data['title'] = "Admin Panel - Edit Pengantaran";
+        $data['custom_css'] = '<link rel="stylesheet" href="' . base_url('/assets/css/style-admin.css') . '">';
+        // dd($data);
+        echo view('admin/layout/header', $data);
+        echo view('admin/crud/delivery_edit', $data);
+        echo view('admin/layout/footer', $data);
     }
 
     //--------------------------------------------------------------------

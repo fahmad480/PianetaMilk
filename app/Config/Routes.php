@@ -59,6 +59,8 @@ $routes->get('/admin/transaction/lunas', 'Admin::transaction_lunas');
 $routes->get('/admin/transaction/batal', 'Admin::transaction_batal');
 $routes->get('/admin/transaction/refund', 'Admin::transaction_refund');
 
+$routes->get('/admin/deliver/edit', 'Admin::delivery_edit');
+
 /**
  * --------------------------------------------------------------------
  * Additional Routing
