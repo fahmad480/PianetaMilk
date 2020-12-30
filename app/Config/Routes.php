@@ -45,6 +45,7 @@ $routes->get('/ourfarm', 'Home::ourfarm');
 $routes->get('/cows', 'Home::cows');
 $routes->get('/subscribe', 'Home::subscribe');
 $routes->get('/zipcheck', 'Home::zipcheck');
+$routes->get('/info', 'Home::info');
 $routes->get('/products/subscribe/(:segment)', 'Products::subscribe/$1');
 $routes->get('/products/(:segment)', 'Products::product/$1');
 
@@ -60,6 +61,11 @@ $routes->get('/admin/transaction/batal', 'Admin::transaction_batal');
 $routes->get('/admin/transaction/refund', 'Admin::transaction_refund');
 
 $routes->get('/admin/deliver/edit', 'Admin::delivery_edit');
+$routes->get('/admin/deliver/add', 'Admin::delivery_add');
+$routes->get('/admin/deliver/delete', 'Admin::delivery_delete');
+
+$routes->get('/transaction/paid', 'Transaction::payment_paid');
+$routes->get('/transaction/reject', 'Transaction::payment_reject');
 
 /**
  * --------------------------------------------------------------------

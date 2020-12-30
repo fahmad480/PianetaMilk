@@ -147,6 +147,30 @@ class Home extends BaseController
 		echo view('layout/footer', $data);
 	}
 
+	public function info()
+	{
+		$input = $this->request->getVar();
+		switch ($input['id']) {
+			case "1":
+				$judul = "Terima Kasih";
+				$pesan = "Terima kasih telah percaya dengan kami dan berlangganan di Pianeta Milk, produk yang kamu inginkan akan kami kirim ke alamat kamu berdasarkan jadwal yang kamu pilih, jangan segan segan untuk menghubungi kamu jika ada sesuatu yang ingin kamu tanyakan";
+				break;
+			case "2":
+				$judul = "Terima Kasih";
+				$pesan = "Mungkin lain kali ya ^_^, kami tunggu kabar baik dari kamu";
+				break;
+			case "3":
+				$judul = "Gagal";
+				$pesan = "Kamu memiliki langganan aktif sebelumnya, jika kamu ingin berubah produk atau berhanti berlangganan, silahkan menguhubungi admin untuk informasi lebih lanjut";
+				break;
+		}
+		$data['pesan'] = $pesan;
+		$data['title'] = $judul;
+		echo view('layout/header', $data);
+		echo view('info', $data);
+		echo view('layout/footer', $data);
+	}
+
 	//--------------------------------------------------------------------
 
 }

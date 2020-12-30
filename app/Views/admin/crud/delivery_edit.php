@@ -4,15 +4,15 @@
         <label for="trx">Kode Transaksi : </label><br>
         <input class="form-control" type="text" name="trx" id="trx" placeholder="Kode Transaksi" value="<?= $delivery['id']; ?>" disabled><br>
         <label for="date">Tanggal : </label><br>
-        <input class="form-control" type="date" name="date" id="date" placeholder="Tanggal Pengiriman" required=""><br>
+        <input class="form-control" type="date" name="date" id="date" placeholder="Tanggal Pengiriman" value="<?= $delivery['date']; ?>" required=""><br>
         <label for="status">Status : </label><br>
         <select class="form-control" id="status" name="status">
-            <option value="<?= $delivery['id']; ?>"><?= ($delivery['id']) ? "Berhasil" : "Gagal"; ?></option>
-            <option value="0">Berhasil</option>
-            <option value="1">Gagal</option>
-        </select>
-        <label for="stok">Komentar : </label><br>
-        <textarea class="form-control" type="number" name="stok" id="stok" placeholder="Stok Produk" required=""><?= $delivery['comment']; ?></textarea><br>
+            <option value="<?= $delivery['status']; ?>"><?= ($delivery['status'] == 1) ? "Berhasil" : "Gagal"; ?></option>
+            <option value="1">Berhasil</option>
+            <option value="0">Gagal</option>
+        </select><br>
+        <label for="comment">Komentar : </label><br>
+        <textarea class="form-control" type="number" name="comment" id="comment" placeholder="Komentar" required=""><?= $delivery['comment']; ?></textarea><br>
         <input type="submit" class="btn btn-dark float-right" value="Submit">
     </form>
 </main>

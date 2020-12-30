@@ -16,9 +16,53 @@ class TransactionsModel extends Model
         $this->UserModel = model('App\Models\UserModel', false);
     }
 
-    public function getTransactions()
+    public function getTransactions($id = false)
     {
-        $query = $this->table($this->table)->get();
+        if ($id) {
+            $query = $this->table($this->table)->where('id', $id)->get();
+
+            $i = 0;
+            foreach ($query->getResultArray() as $row) {
+                $data[$i]['id'] = $row['id'];
+                $data[$i]['buyer'] = $this->UserModel->getUsers($row['buyer']);
+                $data[$i]['product'] = $this->ProductsModel->getProducts($row['product'])[0];
+                $data[$i]['price'] = $row['price'];
+                $data[$i]['date'] = $row['date'];
+                $data[$i]['expired_date'] = $row['expired_date'];
+                $data[$i]['status'] = $row['status'];
+                $data[$i]['jadwal'] = $row['jadwal'];
+                $data[$i]['paket'] = $row['paket'];
+                $data[$i]['payment'] = $row['payment'];
+                $i++;
+            }
+        } else {
+            $q = 'SELECT *, IF(DATE(expired_date) >= \'' . date("Y-m-d") . '\', \'Aktif\', \'Kadaluarsa\') AS status_exp FROM transactions';
+            $query = $this->db->query($q);
+
+            $i = 0;
+            foreach ($query->getResultArray() as $row) {
+                $data[$i]['id'] = $row['id'];
+                $data[$i]['buyer'] = $this->UserModel->getUsers($row['buyer']);
+                $data[$i]['product'] = $this->ProductsModel->getProducts($row['product'])[0];
+                $data[$i]['price'] = $row['price'];
+                $data[$i]['date'] = $row['date'];
+                $data[$i]['expired_date'] = $row['expired_date'];
+                $data[$i]['status'] = $row['status'];
+                $data[$i]['status_exp'] = $row['status_exp'];
+                $data[$i]['jadwal'] = $row['jadwal'];
+                $data[$i]['paket'] = $row['paket'];
+                $data[$i]['payment'] = $row['payment'];
+                $i++;
+            }
+        }
+
+        return $data;
+    }
+
+    public function getActiveTransactions()
+    {
+        $q = "SELECT * FROM " . $this->table . " WHERE DATE(expired_date) >= '" . date('Y-m-d') . "'";
+        $query = $this->db->query($q);
 
         $i = 0;
         foreach ($query->getResultArray() as $row) {
@@ -27,13 +71,40 @@ class TransactionsModel extends Model
             $data[$i]['product'] = $this->ProductsModel->getProducts($row['product'])[0];
             $data[$i]['price'] = $row['price'];
             $data[$i]['date'] = $row['date'];
+            $data[$i]['expired_date'] = $row['expired_date'];
             $data[$i]['status'] = $row['status'];
+            $data[$i]['jadwal'] = $row['jadwal'];
+            $data[$i]['paket'] = $row['paket'];
+            $data[$i]['payment'] = $row['payment'];
             $i++;
         }
+        if (isset($data)) {
+            return $data;
+        } else {
+            return false;
+        }
+    }
 
-        // dd($data);
+    public function getActiveOrNotSubscribtion()
+    {
+        $q = "SELECT * FROM " . $this->table . " WHERE DATE(expired_date) >= '" . date('Y-m-d') . "' AND buyer = '" . user()->toArray()['id'] . "'";
+        $query = $this->db->query($q)->getFieldCount();
 
-        return $data;
+        return $query;
+    }
+
+    public function getChartTransactions()
+    {
+        //SELECT date,SUM(price) AS total FROM transactions WHERE status = 'lunas' GROUP BY date ORDER BY CAST(date as date) ASC LIMIT 10
+        $q = "SELECT date,SUM(price) AS total FROM " . $this->table . " WHERE status = 'lunas' GROUP BY date ORDER BY CAST(date as date) ASC LIMIT 10";
+        $query = $this->db->query($q)->getResultArray();
+
+
+        if (isset($query)) {
+            return $query;
+        } else {
+            return false;
+        }
     }
 
     //----------------------------------------------------------------------
@@ -42,9 +113,9 @@ class TransactionsModel extends Model
         return $this->db->table($this->table)->insert($data);
     }
 
-    public function update_transaction($data, $id)
+    public function update_transaction($data, $where)
     {
-        return $this->db->table($this->table)->update($data, ['id' => $id]);
+        return $this->db->table($this->table)->update($data, $where);
     }
 
     public function delete_transaction($id)

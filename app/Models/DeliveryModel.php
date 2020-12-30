@@ -39,17 +39,17 @@ class DeliveryModel extends Model
     }
 
     //----------------------------------------------------------------------
-    public function insert_transaction($data)
+    public function insert_delivery($data)
     {
         return $this->db->table($this->table)->insert($data);
     }
 
-    public function update_transaction($data, $id)
+    public function update_delivery($data, $id)
     {
         return $this->db->table($this->table)->update($data, ['id' => $id]);
     }
 
-    public function delete_transaction($id)
+    public function delete_delivery($id)
     {
         return $this->db->table($this->table)->delete(['id' => $id]);
     }

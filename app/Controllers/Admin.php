@@ -20,9 +20,64 @@ class Admin extends BaseController
 
     public function index()
     {
+        $chart = $this->transactions->getChartTransactions();
+        $labels = [];
+        $data = [];
+        foreach ($chart as $key => $row) {
+            array_push($labels, $row['date']);
+            array_push($data, $row['total']);
+        }
+        $l = json_encode($labels);
+        $d = json_encode($data);
+
+
+        $j1 = <<<EOF
+/* globals Chart:false, feather:false */
+
+(function () {
+  "use strict";
+
+  feather.replace();
+
+  // Graphs
+  var ctx = document.getElementById("myChart");
+  // eslint-disable-next-line no-unused-vars
+  var myChart = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: $l,
+      datasets: [
+        {
+          data: $d,
+          lineTension: 0,
+          backgroundColor: "transparent",
+          borderColor: "#007bff",
+          borderWidth: 4,
+          pointBackgroundColor: "#007bff",
+        },
+      ],
+    },
+    options: {
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: false,
+            },
+          },
+        ],
+      },
+      legend: {
+        display: false,
+      },
+    },
+  });
+})();
+EOF;
+
         $data['title'] = "Admin Panel";
         $data['custom_css'] = '<link rel="stylesheet" href="' . base_url('/assets/css/style-admin.css') . '">';
-        $data['custom_js'] = '<script src="' . base_url('/assets/js/admin.js') . '"></script>';
+        $data['custom_js'] = "\r\n<script>\r\n$j1\r\n</script>\r\n";
         echo view('admin/layout/header', $data);
         echo view('admin/index', $data);
         echo view('admin/layout/footer', $data);
@@ -214,6 +269,7 @@ class Admin extends BaseController
         $data['title'] = "Admin Panel - Daftar Transaksi";
         $data['transactions'] = $this->transactions->getTransactions();
         $data['custom_css'] = '<link rel="stylesheet" href="' . base_url('/assets/css/style-admin.css') . '">';
+        // dd($data['transactions']);
         echo view('admin/layout/header', $data);
         echo view('admin/transactions', $data);
         echo view('admin/layout/footer', $data);
@@ -268,6 +324,17 @@ class Admin extends BaseController
         echo view('admin/layout/footer', $data);
     }
 
+    public function delivery_add()
+    {
+        $data['trx_list'] = $this->transactions->getActiveTransactions();
+        $data['title'] = "Admin Panel - Tambah Pengantaran";
+        $data['custom_css'] = '<link rel="stylesheet" href="' . base_url('/assets/css/style-admin.css') . '">';
+        // dd($data);
+        echo view('admin/layout/header', $data);
+        echo view('admin/crud/delivery_add', $data);
+        echo view('admin/layout/footer', $data);
+    }
+
     public function delivery_edit()
     {
         $data['delivery'] = $this->delivery->getDelivery($this->request->getGet('id'))[0];
@@ -277,6 +344,47 @@ class Admin extends BaseController
         echo view('admin/layout/header', $data);
         echo view('admin/crud/delivery_edit', $data);
         echo view('admin/layout/footer', $data);
+    }
+
+    public function delivery_insert()
+    {
+        $post = $this->request->getPost();
+
+        $data = [
+            'trx' => $post['trx'],
+            'date' => $post['date'],
+            'status' => $post['status'],
+            'comment' => $post['comment']
+        ];
+
+        if ($this->delivery->insert_delivery($data)) {
+            return redirect()->to(base_url('admin/delivery?status=success&message=Pengantaran+Berhasil+ditambah'));
+        }
+    }
+
+    public function delivery_update()
+    {
+        $post = $this->request->getPost();
+        $get = $this->request->getGet();
+
+        $data = [
+            'date' => $post['date'],
+            'status' => $post['status'],
+            'comment' => $post['comment']
+        ];
+
+        if ($this->delivery->update_delivery($data, $get['id'])) {
+            return redirect()->to(base_url('admin/delivery?status=success&message=Pengantaran+Berhasil+diperbaharui'));
+        }
+    }
+
+    public function delivery_delete()
+    {
+        $get = $this->request->getGet();
+
+        if ($this->delivery->delete_delivery($get['id'])) {
+            return redirect()->to(base_url('admin/delivery?status=success&message=Pengantaran+Berhasil+dihapus'));
+        }
     }
 
     //--------------------------------------------------------------------

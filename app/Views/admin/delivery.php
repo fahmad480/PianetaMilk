@@ -24,7 +24,7 @@
             foreach ($delivery as $key => $row) :
             ?>
                 <tr>
-                    <th scope="row"><?= $row['id'] ?></th>
+                    <th scope="row">#<?= $row['id'] ?></th>
                     <td><?= $row['trx']['buyer']['full_name']; ?></td>
                     <td><?= $row['trx']['product']['title']; ?></td>
                     <td><?= $row['date']; ?></td>

@@ -14,6 +14,7 @@
                 <th scope="col">Produk</th>
                 <th scope="col">Harga</th>
                 <th scope="col">Status</th>
+                <th scope="col">Pembayaran</th>
                 <th scope="col">Tanggal</th>
                 <th scope="col">Action</th>
             </tr>
@@ -27,8 +28,9 @@
                     <td><?= $row['buyer']['full_name']; ?></td>
                     <td><?= $row['product']['title']; ?></td>
                     <td><?= $row['price']; ?></td>
+                    <td><?= ($row['status'] == "lunas") ? $row['status_exp'] : $row['status']; ?></td>
+                    <td><?= strtoupper($row['payment']); ?></td>
                     <td><?= $row['date']; ?></td>
-                    <td><?= $row['status']; ?></td>
                     <td>
                         <div class="btn-group">
                             <?php if ($row['status'] == "belum lunas") { ?>
