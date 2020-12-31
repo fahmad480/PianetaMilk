@@ -5,14 +5,21 @@ namespace App\Controllers;
 use CodeIgniter\Controller;
 use App\Models\CarouselModel;
 use App\Models\PagesModel;
+use App\Models\TransactionsModel;
+use App\Models\UserModel;
+use App\Models\DeliveryModel;
 
 class Home extends BaseController
 {
 	public function __construct()
 	{
+		helper('form');
 		// Mendeklarasikan class ProductModel menggunakan $this->product
 		$this->carousel = new CarouselModel();
 		$this->pages = new PagesModel();
+		$this->transactions = new TransactionsModel();
+		$this->user = new UserModel();
+		$this->delivery = new DeliveryModel();
 		/* Catatan:
         Apa yang ada di dalam function construct ini nantinya bisa digunakan
         pada function di dalam class Product 
@@ -163,11 +170,68 @@ class Home extends BaseController
 				$judul = "Gagal";
 				$pesan = "Kamu memiliki langganan aktif sebelumnya, jika kamu ingin berubah produk atau berhanti berlangganan, silahkan menguhubungi admin untuk informasi lebih lanjut";
 				break;
+			case "4":
+				$judul = "Gagal";
+				$pesan = "Kamu tidak memiliki akses ke halaman ini";
+				break;
 		}
 		$data['pesan'] = $pesan;
 		$data['title'] = $judul;
 		echo view('layout/header', $data);
 		echo view('info', $data);
+		echo view('layout/footer', $data);
+	}
+
+	public function account_update()
+	{
+		$data['title'] = "Ubah Data Akun";
+		echo view('layout/header', $data);
+		echo view('account_update', $data);
+		echo view('layout/footer', $data);
+	}
+
+	public function account_updates()
+	{
+		if ($this->request->getMethod() !== 'post') {
+			return redirect()->to(base_url('account_update?status=danger&message=Akun+Gagal+Diperbaharui'));
+		}
+
+		$validated = $this->validate([
+			'profile' => 'uploaded[profile]|mime_in[profile,image/jpg,image/jpeg,image/gif,image/png]|max_size[profile,4096]'
+		]);
+
+		if ($validated == FALSE) {
+
+			// Kembali ke function index supaya membawa data uploads dan validasi
+			return redirect()->to(base_url('account_update?status=danger&message=Akun+Gagal+Diperbaharui'));
+		} else {
+
+			$avatar = $this->request->getFile('profile');
+			$avatar->move(ROOTPATH . 'public/assets/img/profile/upload/' . user()->id . '/');
+			$input = $this->request->getVar();
+
+			$data = [
+				'email' => $input['email'],
+				'full_name' => $input['fullname'],
+				'address' => $input['alamat'],
+				'profile_pict' => '/assets/img/profile/upload/' . user()->id . '/' . $avatar->getName()
+			];
+
+			if ($this->user->update_user($data, user()->id)) {
+				return redirect()->to(base_url('account_update?status=success&message=Akun+Berhasil+Diperbaharui'));
+			} else {
+				return redirect()->to(base_url('account_update?status=danger&message=Akun+Gagal+Diperbaharui'));
+			}
+		}
+	}
+
+	public function history_trx()
+	{
+		$data['title'] = "Sejarah Transaksi";
+		$data['transactions'] = $this->transactions->getTransactions(user()->id, "buyer");
+		$data['delivery'] = $this->delivery->getMyDelivery();
+		echo view('layout/header', $data);
+		echo view('history_trx', $data);
 		echo view('layout/footer', $data);
 	}
 

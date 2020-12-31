@@ -12,6 +12,7 @@ class Admin extends BaseController
 {
     public function __construct()
     {
+        helper('form');
         $this->pages = new PagesModel();
         $this->transactions = new TransactionsModel();
         $this->products = new ProductsModel();
@@ -204,6 +205,41 @@ EOF;
 
     public function product_save()
     {
+        // $post = $this->request->getPost();
+        // $get = $this->request->getGet();
+
+        // if ($this->request->getMethod() !== 'post') {
+        //     return redirect()->to(base_url('/admin/products?status=danger&message=Produk+Gagal+ditambah'));
+        // }
+
+        // $validated = $this->validate([
+        //     'foto' => 'uploaded[foto]|mime_in[foto,image/jpg,image/jpeg,image/gif,image/png]|max_size[foto,4096]'
+        // ]);
+
+        // if ($validated == FALSE) {
+
+        //     // Kembali ke function index supaya membawa data uploads dan validasi
+        //     return redirect()->to(base_url('/admin/products?status=danger&message=Produk+Gagal+ditambah'));
+        // } else {
+
+        //     $avatar = $this->request->getFile('foto');
+        //     $avatar->move(ROOTPATH . 'public/assets/img/product/upload/new/');
+
+        //     $data = [
+        //         'title' => $post['nama'],
+        //         'description' => $post['deskripsi'],
+        //         'price' => $post['harga'],
+        //         'stock' => $post['stok'],
+        //         'status' => 1,
+        //         'image' => '/assets/img/product/upload/new/' . $avatar->getName()
+        //     ];
+
+        //     if ($this->products->insert_product($data)) {
+        //         return redirect()->to(base_url('/admin/products?status=success&message=Produk+Berhasil+ditambah'));
+        //     } else {
+        //         return redirect()->to(base_url('/admin/products?status=danger&message=Produk+Gagal+ditambah'));
+        //     }
+        // }
         $post = $this->request->getPost();
 
         $data = [
@@ -225,16 +261,37 @@ EOF;
         $post = $this->request->getPost();
         $get = $this->request->getGet();
 
-        $data = [
-            'title' => $post['nama'],
-            'description' => $post['deskripsi'],
-            'price' => $post['harga'],
-            'stock' => $post['stok'],
-            'status' => 1
-        ];
+        if ($this->request->getMethod() !== 'post') {
+            return redirect()->to(base_url('/admin/products?status=danger&message=Produk+Gagal+diperbaharui'));
+        }
 
-        if ($this->products->update_product($data, $get['id'])) {
-            return redirect()->to(base_url('/admin/products?status=success&message=Produk+Berhasil+diperbaharui'));
+        $validated = $this->validate([
+            'foto' => 'uploaded[foto]|mime_in[foto,image/jpg,image/jpeg,image/gif,image/png]|max_size[foto,4096]'
+        ]);
+
+        if ($validated == FALSE) {
+
+            // Kembali ke function index supaya membawa data uploads dan validasi
+            return redirect()->to(base_url('/admin/products?status=danger&message=Produk+Gagal+diperbaharui'));
+        } else {
+
+            $avatar = $this->request->getFile('foto');
+            $avatar->move(ROOTPATH . 'public/assets/img/product/upload/' . $get['id'] . '/');
+
+            $data = [
+                'title' => $post['nama'],
+                'description' => $post['deskripsi'],
+                'price' => $post['harga'],
+                'stock' => $post['stok'],
+                'status' => 1,
+                'image' => '/assets/img/product/upload/' . $get['id'] . '/' . $avatar->getName()
+            ];
+
+            if ($this->products->update_product($data, $get['id'])) {
+                return redirect()->to(base_url('/admin/products?status=success&message=Produk+Berhasil+diperbaharui'));
+            } else {
+                return redirect()->to(base_url('/admin/products?status=danger&message=Produk+Gagal+diperbaharui'));
+            }
         }
     }
 
@@ -319,6 +376,7 @@ EOF;
         $data['title'] = "Admin Panel - Daftar Pengantaran";
         $data['delivery'] = $this->delivery->getDelivery();
         $data['custom_css'] = '<link rel="stylesheet" href="' . base_url('/assets/css/style-admin.css') . '">';
+        // dd($data);
         echo view('admin/layout/header', $data);
         echo view('admin/delivery', $data);
         echo view('admin/layout/footer', $data);

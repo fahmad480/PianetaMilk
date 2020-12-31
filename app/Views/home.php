@@ -38,7 +38,7 @@
                     <strong class="d-inline-block mb-2 text-primary">Product</strong>
                     <h3 class="mb-0">Lihat Kumpulan Produk Kami</h3>
                     <div class="mb-1 text-muted">Pianeta Milk</div>
-                    <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+                    <p class="card-text mb-auto">Pilih Produk Yang Akan Anda Beli Bersama Keluarga Anda</p>
                     <a href="<?= base_url('/products'); ?>" class="stretched-link">Lihat</a>
                 </div>
                 <div class="col-auto d-none d-lg-block">
@@ -52,7 +52,7 @@
                     <strong class="d-inline-block mb-2 text-success">Design</strong>
                     <h3 class="mb-0">Peternakan Kami</h3>
                     <div class="mb-1 text-muted">Pianeta Milk</div>
-                    <p class="mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+                    <p class="mb-auto">Deskripsi Tentang Peternakan PianetaMilk</p>
                     <a href="<?= base_url('/ourfarm'); ?>" class="stretched-link">Lihat</a>
                 </div>
                 <div class="col-auto d-none d-lg-block">

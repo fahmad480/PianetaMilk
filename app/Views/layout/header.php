@@ -52,13 +52,13 @@
                                 <img class="mr-2" height="40" width="40" style="object-fit: cover; border-radius: 50%;" src="<?= base_url(user()->toArray()['profile_pict']); ?>" alt="profile"><?= user()->toArray()['full_name']; ?>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a href="#" class="dropdown-item">
+                                <a href="<?= base_url('account_update'); ?>" class="dropdown-item">
                                     Ubah Data Akun
                                 </a>
-                                <a href="#" class="dropdown-item">
+                                <a href="<?= base_url('history_trx'); ?>" class="dropdown-item">
                                     Sejarah Transaksi
                                 </a>
-                                <a href="/logout" class="dropdown-item">
+                                <a href="<?= base_url('logout'); ?>" class="dropdown-item">
                                     Logout
                                 </a>
                             </div>

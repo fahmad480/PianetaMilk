@@ -41,7 +41,7 @@
         <div class="col-md-3">
             <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                 <div class="col p-4 d-flex flex-column position-static">
-                    <img class="mb-3" style="object-fit: cover;" src="<?= base_url($row['image']); ?>" alt="<?= $row['title']; ?>">
+                    <img class="mb-3" height="230" width="100%" style="object-fit: cover;" src="<?= base_url($row['image']); ?>" alt="<?= $row['title']; ?>">
                     <h3 class="mb-2"><?= $row['title']; ?></h3>
                     <div class="mb-2 text-muted">
                         <?php

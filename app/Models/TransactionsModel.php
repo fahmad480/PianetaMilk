@@ -16,10 +16,10 @@ class TransactionsModel extends Model
         $this->UserModel = model('App\Models\UserModel', false);
     }
 
-    public function getTransactions($id = false)
+    public function getTransactions($id = false, $where = false)
     {
         if ($id) {
-            $query = $this->table($this->table)->where('id', $id)->get();
+            $query = $this->table($this->table)->where($where, $id)->get();
 
             $i = 0;
             foreach ($query->getResultArray() as $row) {
@@ -56,7 +56,11 @@ class TransactionsModel extends Model
             }
         }
 
-        return $data;
+        if (isset($data)) {
+            return $data;
+        } else {
+            return false;
+        }
     }
 
     public function getActiveTransactions()

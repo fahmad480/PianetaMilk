@@ -23,7 +23,7 @@ class DeliveryModel extends Model
 
         $i = 0;
         foreach ($query->getResultArray() as $row) {
-            $trx = $this->TransactionsModel->getTransactions($row['trx'])[0];
+            $trx = $this->TransactionsModel->getTransactions($row['trx'], "id")[0];
 
             $data[$i]['id'] = $row['id'];
             $data[$i]['trx'] = $trx;
@@ -33,9 +33,31 @@ class DeliveryModel extends Model
             $i++;
         }
 
-        // dd($data);
-
         return $data;
+    }
+
+    public function getMyDelivery()
+    {
+        $q = 'SELECT * FROM delivery WHERE trx IN (SELECT id FROM transactions WHERE buyer = \'' . user()->id . '\')';
+        $query = $this->db->query($q);
+
+        $i = 0;
+        foreach ($query->getResultArray() as $row) {
+            $trx = $this->TransactionsModel->getTransactions($row['trx'], "id")[0];
+
+            $data[$i]['id'] = $row['id'];
+            $data[$i]['trx'] = $trx;
+            $data[$i]['date'] = $row['date'];
+            $data[$i]['status'] = $row['status'];
+            $data[$i]['comment'] = $row['comment'];
+            $i++;
+        }
+
+        if (isset($data)) {
+            return $data;
+        } else {
+            return false;
+        }
     }
 
     //----------------------------------------------------------------------

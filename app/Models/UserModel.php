@@ -16,4 +16,20 @@ class UserModel extends Model
             return $this->table($this->table)->where('id', $id)->get()->getRowArray();
         }
     }
+
+    //----------------------------------------------------------------------
+    public function insert_user($data)
+    {
+        return $this->db->table($this->table)->insert($data);
+    }
+
+    public function update_user($data, $id)
+    {
+        return $this->db->table($this->table)->update($data, ['id' => $id]);
+    }
+
+    public function delete_user($id)
+    {
+        return $this->db->table($this->table)->delete(['id' => $id]);
+    }
 }

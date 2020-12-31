@@ -1,3 +1,9 @@
+<?php
+if (!in_groups('admin')) {
+    throw new \CodeIgniter\Exceptions\PageNotFoundException();
+}
+?>
+
 <!doctype html>
 <html lang="en">
 

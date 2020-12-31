@@ -46,6 +46,9 @@ $routes->get('/cows', 'Home::cows');
 $routes->get('/subscribe', 'Home::subscribe');
 $routes->get('/zipcheck', 'Home::zipcheck');
 $routes->get('/info', 'Home::info');
+$routes->get('/account_update', 'Home::account_update');
+$routes->post('/account_updates', 'Home::account_updates');
+$routes->get('/history_trx', 'Home::history_trx');
 $routes->get('/products/subscribe/(:segment)', 'Products::subscribe/$1');
 $routes->get('/products/(:segment)', 'Products::product/$1');
 
@@ -66,6 +69,14 @@ $routes->get('/admin/deliver/delete', 'Admin::delivery_delete');
 
 $routes->get('/transaction/paid', 'Transaction::payment_paid');
 $routes->get('/transaction/reject', 'Transaction::payment_reject');
+
+
+// $routes->group('admin', ['filter' => 'role:admin'], function ($routes) {
+// 	return redirect()->to(base_url());
+// });
+// $routes->group('admin/*', ['filter' => 'role:admin'], function ($routes) {
+// 	return redirect()->to(base_url());
+// });
 
 /**
  * --------------------------------------------------------------------
