@@ -8,6 +8,8 @@ use App\Models\TransactionsModel;
 use App\Models\ProductsModel;
 use App\Models\DeliveryModel;
 use App\Models\CarouselModel;
+use App\Models\ZipModel;
+use App\Models\UserModel;
 
 class Admin extends BaseController
 {
@@ -19,6 +21,8 @@ class Admin extends BaseController
         $this->products = new ProductsModel();
         $this->delivery = new DeliveryModel();
         $this->carousel = new CarouselModel();
+        $this->zip = new ZipModel();
+        $this->user = new UserModel();
     }
 
     public function index()
@@ -441,6 +445,7 @@ EOF;
     {
         $data['title'] = "Admin Panel - Data Gambar Carousel";
         $data['carousel'] = $this->carousel->getCarousel();
+        $data['custom_css'] = '<link rel="stylesheet" href="' . base_url('/assets/css/style-admin.css') . '">';
         echo view('admin/layout/header', $data);
         echo view('admin/carousel', $data);
         echo view('admin/layout/footer', $data);
@@ -546,6 +551,26 @@ EOF;
         } else {
             return redirect()->to(base_url('admin/carousel?status=danger&message=Carousel+gagal+diperbaharui'));
         }
+    }
+
+    public function zip()
+    {
+        $data['title'] = "Admin Panel - Daftar Kode Pos";
+        $data['zip'] = $this->zip->getZip();
+        $data['custom_css'] = '<link rel="stylesheet" href="' . base_url('/assets/css/style-admin.css') . '">';
+        echo view('admin/layout/header', $data);
+        echo view('admin/zip', $data);
+        echo view('admin/layout/footer', $data);
+    }
+
+    public function user()
+    {
+        $data['title'] = "Admin Panel - Daftar Pengguna";
+        $data['custom_css'] = '<link rel="stylesheet" href="' . base_url('/assets/css/style-admin.css') . '">';
+        $data['user'] = $this->user->getUsers();
+        echo view('admin/layout/header', $data);
+        echo view('admin/user', $data);
+        echo view('admin/layout/footer', $data);
     }
 
     //--------------------------------------------------------------------

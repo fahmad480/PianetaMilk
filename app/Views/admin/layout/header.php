@@ -70,6 +70,16 @@ if (!in_groups('admin')) {
                                 <i class="fa fa-history" aria-hidden="true"></i> Riwayat Transaksi
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="<?= base_url('admin/zip'); ?>">
+                                <i class="fa fa-map-marker" aria-hidden="true"></i> Daftar Kode Pos
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="<?= base_url('admin/user'); ?>">
+                                <i class="fa fa-users" aria-hidden="true"></i> Daftar Pengguna
+                            </a>
+                        </li>
                     </ul>
 
                     <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">

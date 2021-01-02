@@ -11,9 +11,9 @@ class ZipModel extends Model
     public function getZip($id = false)
     {
         if ($id === false) {
-            return false;
+            return $this->table($this->table)->get()->getResultArray();
         } else {
-            $return = $this->table('zip')->where('zip', $id)->get()->getRowArray();
+            $return = $this->table($this->table)->where('zip', $id)->get()->getRowArray();
             if (isset($return['zip'])) {
                 return true;
             } else {
