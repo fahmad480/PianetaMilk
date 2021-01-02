@@ -10,7 +10,7 @@
     <label for="stok">Stok : </label><br>
     <input class="form-control" type="number" name="stok" id="stok" placeholder="Stok Produk" value="" required=""><br>
     <label for="foto">Foto Produk : </label><br>
-    <input type="file" class="form-control-file mb-4" multiple accept='image/*' id="foto"><br />
+    <input type="file" class="form-control-file mb-4" multiple accept='image/*' name="foto" id="foto"><br />
     <input type="submit" class="btn btn-dark float-right" value="Submit">
     <?= form_close(); ?>
 </main>

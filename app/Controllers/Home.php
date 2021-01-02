@@ -192,6 +192,8 @@ class Home extends BaseController
 
 	public function account_updates()
 	{
+		$input = $this->request->getVar();
+
 		if ($this->request->getMethod() !== 'post') {
 			return redirect()->to(base_url('account_update?status=danger&message=Akun+Gagal+Diperbaharui'));
 		}
@@ -201,14 +203,15 @@ class Home extends BaseController
 		]);
 
 		if ($validated == FALSE) {
-
-			// Kembali ke function index supaya membawa data uploads dan validasi
-			return redirect()->to(base_url('account_update?status=danger&message=Akun+Gagal+Diperbaharui'));
+			$data = [
+				'email' => $input['email'],
+				'full_name' => $input['fullname'],
+				'address' => $input['alamat']
+			];
 		} else {
 
 			$avatar = $this->request->getFile('profile');
 			$avatar->move(ROOTPATH . 'public/assets/img/profile/upload/' . user()->id . '/');
-			$input = $this->request->getVar();
 
 			$data = [
 				'email' => $input['email'],
@@ -216,12 +219,12 @@ class Home extends BaseController
 				'address' => $input['alamat'],
 				'profile_pict' => '/assets/img/profile/upload/' . user()->id . '/' . $avatar->getName()
 			];
+		}
 
-			if ($this->user->update_user($data, user()->id)) {
-				return redirect()->to(base_url('account_update?status=success&message=Akun+Berhasil+Diperbaharui'));
-			} else {
-				return redirect()->to(base_url('account_update?status=danger&message=Akun+Gagal+Diperbaharui'));
-			}
+		if ($this->user->update_user($data, user()->id)) {
+			return redirect()->to(base_url('account_update?status=success&message=Akun+Berhasil+Diperbaharui'));
+		} else {
+			return redirect()->to(base_url('account_update?status=danger&message=Akun+Gagal+Diperbaharui'));
 		}
 	}
 

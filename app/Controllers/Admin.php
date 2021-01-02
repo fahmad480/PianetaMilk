@@ -7,6 +7,7 @@ use App\Models\PagesModel;
 use App\Models\TransactionsModel;
 use App\Models\ProductsModel;
 use App\Models\DeliveryModel;
+use App\Models\CarouselModel;
 
 class Admin extends BaseController
 {
@@ -17,6 +18,7 @@ class Admin extends BaseController
         $this->transactions = new TransactionsModel();
         $this->products = new ProductsModel();
         $this->delivery = new DeliveryModel();
+        $this->carousel = new CarouselModel();
     }
 
     public function index()
@@ -205,54 +207,40 @@ EOF;
 
     public function product_save()
     {
-        // $post = $this->request->getPost();
-        // $get = $this->request->getGet();
-
-        // if ($this->request->getMethod() !== 'post') {
-        //     return redirect()->to(base_url('/admin/products?status=danger&message=Produk+Gagal+ditambah'));
-        // }
-
-        // $validated = $this->validate([
-        //     'foto' => 'uploaded[foto]|mime_in[foto,image/jpg,image/jpeg,image/gif,image/png]|max_size[foto,4096]'
-        // ]);
-
-        // if ($validated == FALSE) {
-
-        //     // Kembali ke function index supaya membawa data uploads dan validasi
-        //     return redirect()->to(base_url('/admin/products?status=danger&message=Produk+Gagal+ditambah'));
-        // } else {
-
-        //     $avatar = $this->request->getFile('foto');
-        //     $avatar->move(ROOTPATH . 'public/assets/img/product/upload/new/');
-
-        //     $data = [
-        //         'title' => $post['nama'],
-        //         'description' => $post['deskripsi'],
-        //         'price' => $post['harga'],
-        //         'stock' => $post['stok'],
-        //         'status' => 1,
-        //         'image' => '/assets/img/product/upload/new/' . $avatar->getName()
-        //     ];
-
-        //     if ($this->products->insert_product($data)) {
-        //         return redirect()->to(base_url('/admin/products?status=success&message=Produk+Berhasil+ditambah'));
-        //     } else {
-        //         return redirect()->to(base_url('/admin/products?status=danger&message=Produk+Gagal+ditambah'));
-        //     }
-        // }
         $post = $this->request->getPost();
+        $get = $this->request->getGet();
 
-        $data = [
-            'title' => $post['nama'],
-            'description' => $post['deskripsi'],
-            'price' => $post['harga'],
-            'stock' => $post['stok'],
-            'status' => 1,
-            'image' => '/assets/img/product-example.jpg'
-        ];
+        if ($this->request->getMethod() !== 'post') {
+            return redirect()->to(base_url('/admin/products?status=danger&message=Produk+Gagal+ditambah'));
+        }
 
-        if ($this->products->insert_product($data)) {
-            return redirect()->to(base_url('/admin/products?status=success&message=Produk+Berhasil+ditambah'));
+        $validated = $this->validate([
+            'foto' => 'uploaded[foto]|mime_in[foto,image/jpg,image/jpeg,image/gif,image/png]|max_size[foto,4096]'
+        ]);
+
+        if ($validated == FALSE) {
+
+            // Kembali ke function index supaya membawa data uploads dan validasi
+            return redirect()->to(base_url('/admin/products?status=danger&message=Produk+Gagal+ditambah'));
+        } else {
+
+            $avatar = $this->request->getFile('foto');
+            $avatar->move(ROOTPATH . 'public/assets/img/product/upload/new/');
+
+            $data = [
+                'title' => $post['nama'],
+                'description' => $post['deskripsi'],
+                'price' => $post['harga'],
+                'stock' => $post['stok'],
+                'status' => 1,
+                'image' => '/assets/img/product/upload/new/' . $avatar->getName()
+            ];
+
+            if ($this->products->insert_product($data)) {
+                return redirect()->to(base_url('/admin/products?status=success&message=Produk+Berhasil+ditambah'));
+            } else {
+                return redirect()->to(base_url('/admin/products?status=danger&message=Produk+Gagal+ditambah'));
+            }
         }
     }
 
@@ -270,9 +258,13 @@ EOF;
         ]);
 
         if ($validated == FALSE) {
-
-            // Kembali ke function index supaya membawa data uploads dan validasi
-            return redirect()->to(base_url('/admin/products?status=danger&message=Produk+Gagal+diperbaharui'));
+            $data = [
+                'title' => $post['nama'],
+                'description' => $post['deskripsi'],
+                'price' => $post['harga'],
+                'stock' => $post['stok'],
+                'status' => 1
+            ];
         } else {
 
             $avatar = $this->request->getFile('foto');
@@ -286,12 +278,12 @@ EOF;
                 'status' => 1,
                 'image' => '/assets/img/product/upload/' . $get['id'] . '/' . $avatar->getName()
             ];
+        }
 
-            if ($this->products->update_product($data, $get['id'])) {
-                return redirect()->to(base_url('/admin/products?status=success&message=Produk+Berhasil+diperbaharui'));
-            } else {
-                return redirect()->to(base_url('/admin/products?status=danger&message=Produk+Gagal+diperbaharui'));
-            }
+        if ($this->products->update_product($data, $get['id'])) {
+            return redirect()->to(base_url('/admin/products?status=success&message=Produk+Berhasil+diperbaharui'));
+        } else {
+            return redirect()->to(base_url('/admin/products?status=danger&message=Produk+Gagal+diperbaharui'));
         }
     }
 
@@ -442,6 +434,117 @@ EOF;
 
         if ($this->delivery->delete_delivery($get['id'])) {
             return redirect()->to(base_url('admin/delivery?status=success&message=Pengantaran+Berhasil+dihapus'));
+        }
+    }
+
+    public function carousel()
+    {
+        $data['title'] = "Admin Panel - Data Gambar Carousel";
+        $data['carousel'] = $this->carousel->getCarousel();
+        echo view('admin/layout/header', $data);
+        echo view('admin/carousel', $data);
+        echo view('admin/layout/footer', $data);
+    }
+
+    public function carousel_add()
+    {
+        $data['title'] = "Admin Panel - Edit Carousel";
+        $data['custom_css'] = '<link rel="stylesheet" href="' . base_url('/assets/css/style-admin.css') . '">';
+        echo view('admin/layout/header', $data);
+        echo view('admin/crud/carousel_add', $data);
+        echo view('admin/layout/footer', $data);
+    }
+
+    public function carousel_edit()
+    {
+        $data['carousel'] = $this->carousel->getCarousel($this->request->getGet('id'))[0];
+        $data['title'] = "Admin Panel - Edit Carousel";
+        $data['custom_css'] = '<link rel="stylesheet" href="' . base_url('/assets/css/style-admin.css') . '">';
+        // dd($data);
+        echo view('admin/layout/header', $data);
+        echo view('admin/crud/carousel_edit', $data);
+        echo view('admin/layout/footer', $data);
+    }
+
+    public function carousel_delete()
+    {
+        $get = $this->request->getGet();
+
+        if ($this->carousel->delete_carousel($get['id'])) {
+            return redirect()->to(base_url('admin/carousel?status=success&message=Carousel+Berhasil+dihapus'));
+        }
+    }
+
+    public function carousel_insert()
+    {
+        $post = $this->request->getPost();
+        $get = $this->request->getGet();
+
+        if ($this->request->getMethod() !== 'post') {
+            return redirect()->to(base_url('admin/carousel?status=danger&message=Carousel+gagal+ditambah'));
+        }
+
+        $validated = $this->validate([
+            'foto' => 'uploaded[foto]|mime_in[foto,image/jpg,image/jpeg,image/gif,image/png]|max_size[foto,4096]'
+        ]);
+
+        if ($validated == FALSE) {
+
+            // Kembali ke function index supaya membawa data uploads dan validasi
+            return redirect()->to(base_url('admin/carousel?status=danger&message=Carousel+gagal+ditambah'));
+        } else {
+
+            $avatar = $this->request->getFile('foto');
+            $avatar->move(ROOTPATH . 'public/assets/img/carousel/upload/');
+
+            $data = [
+                'title' => $post['judul'],
+                'description' => $post['deskripsi'],
+                'image_url' => '/assets/img/carousel/upload/' . $avatar->getName()
+            ];
+
+            if ($this->carousel->insert_carousel($data)) {
+                return redirect()->to(base_url('admin/carousel?status=success&message=Carousel+Berhasil+ditambah'));
+            } else {
+                return redirect()->to(base_url('admin/carousel?status=danger&message=Carousel+gagal+ditambah'));
+            }
+        }
+    }
+
+    public function carousel_update()
+    {
+        $post = $this->request->getPost();
+        $get = $this->request->getGet();
+
+        if ($this->request->getMethod() !== 'post') {
+            return redirect()->to(base_url('admin/carousel?status=danger&message=Carousel+gagal+diperbaharui'));
+        }
+
+        $validated = $this->validate([
+            'foto' => 'uploaded[foto]|mime_in[foto,image/jpg,image/jpeg,image/gif,image/png]|max_size[foto,4096]'
+        ]);
+
+        if ($validated == FALSE) {
+            $data = [
+                'title' => $post['judul'],
+                'description' => $post['deskripsi']
+            ];
+        } else {
+
+            $avatar = $this->request->getFile('foto');
+            $avatar->move(ROOTPATH . 'public/assets/img/carousel/upload/');
+
+            $data = [
+                'title' => $post['judul'],
+                'description' => $post['deskripsi'],
+                'image_url' => '/assets/img/carousel/upload/' . $avatar->getName()
+            ];
+        }
+
+        if ($this->carousel->update_carousel($data, $get['id'])) {
+            return redirect()->to(base_url('admin/carousel?status=success&message=Carousel+Berhasil+diperbaharui'));
+        } else {
+            return redirect()->to(base_url('admin/carousel?status=danger&message=Carousel+gagal+diperbaharui'));
         }
     }
 

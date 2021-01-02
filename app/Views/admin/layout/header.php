@@ -56,6 +56,11 @@ if (!in_groups('admin')) {
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="<?= base_url('admin/carousel'); ?>">
+                                <i class="fa fa-image" aria-hidden="true"></i> Carousel
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="<?= base_url('admin/products'); ?>">
                                 <i class="fa fa-archive" aria-hidden="true"></i> Daftar Produk
                             </a>
