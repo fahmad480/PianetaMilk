@@ -65,6 +65,27 @@ class Action extends BaseController
 
         // echo $id_product . " | " . $stars;
     }
+
+    public function send_review()
+    {
+        $id_product = $this->request->getPost('id_product');
+        $stars = $this->request->getPost('stars');
+        $review = $this->request->getPost('review');
+
+        if ($this->reviews->updateReview($id_product, $stars, $review)) {
+            echo <<<MSG_EOF
+            <div class="alert alert-success" role="alert">
+            Review berhasil dikirim
+          </div>
+MSG_EOF;
+        } else {
+            echo <<<MSG_EOF
+            <div class="alert alert-danger" role="alert">
+            Review gagal dikirim
+          </div>
+MSG_EOF;
+        }
+    }
     //--------------------------------------------------------------------
 
 }

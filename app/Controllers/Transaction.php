@@ -73,6 +73,8 @@ class Transaction extends BaseController
 
         if ($this->transaction->getActiveOrNotSubscribtion() >= 1) {
             return redirect()->to(base_url('info?id=3'));
+        } else {
+            $this->transaction->insert_transaction($d);
         }
 
         switch ($pay) {

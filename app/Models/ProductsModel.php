@@ -68,7 +68,7 @@ class ProductsModel extends Model
 
     public function getAllReview($id_product)
     {
-        $query = $this->db->query("SELECT * FROM review WHERE id_product='$id_product'");
+        $query = $this->db->query("SELECT * FROM review WHERE id_product='$id_product' ORDER BY id DESC");
 
         $i = 0;
         foreach ($query->getResultArray() as $row) {
@@ -80,6 +80,13 @@ class ProductsModel extends Model
             $i++;
         }
         return $data;
+    }
+
+    public function getCountStars($id_product)
+    {
+        $query = $this->db->query("SELECT stars, COUNT(*) AS 'total' FROM review WHERE id_product='$id_product' GROUP BY stars")->getResultArray();
+
+        return $query;
     }
 
     //-------------------------------[ BAGIAN CRUD PRODUCT ]

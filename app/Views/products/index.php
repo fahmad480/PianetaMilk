@@ -3,9 +3,11 @@
 ?>
 <div id="carouselExampleIndicators" class="carousel slide hero" data-ride="carousel">
     <ol class="carousel-indicators">
-        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        <?php
+        foreach ($carousel as $key => $row) :
+        ?>
+            <li data-target="#carouselExampleIndicators" data-slide-to="<?= $key; ?>" <?= ($key == 0) ? 'class="active"' : ''; ?>></li>
+        <?php endforeach; ?>
     </ol>
     <div class="carousel-inner">
         <?php
