@@ -21,4 +21,27 @@ class ZipModel extends Model
             }
         }
     }
+
+    public function getValueZip($id = false)
+    {
+        if ($id) {
+            return $this->table($this->table)->where('zip', $id)->get()->getRowArray();
+        }
+    }
+
+    //------------------------------------------------------------------------------------
+    public function insert_zip($data)
+    {
+        return $this->db->table($this->table)->insert($data);
+    }
+
+    public function update_zip($data, $where)
+    {
+        return $this->db->table($this->table)->update($data, ['zip' => $where]);
+    }
+
+    public function delete_zip($id)
+    {
+        return $this->db->table($this->table)->delete(['zip' => $id]);
+    }
 }

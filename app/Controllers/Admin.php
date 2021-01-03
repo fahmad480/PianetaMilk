@@ -9,7 +9,7 @@ use App\Models\ProductsModel;
 use App\Models\DeliveryModel;
 use App\Models\CarouselModel;
 use App\Models\ZipModel;
-use App\Models\UserModel;
+use App\Models\UsersModel;
 
 class Admin extends BaseController
 {
@@ -22,7 +22,7 @@ class Admin extends BaseController
         $this->delivery = new DeliveryModel();
         $this->carousel = new CarouselModel();
         $this->zip = new ZipModel();
-        $this->user = new UserModel();
+        $this->user = new UsersModel();
     }
 
     public function index()
@@ -336,7 +336,7 @@ EOF;
             'status' => 'lunas'
         ];
 
-        if ($this->transactions->update_transaction($data, $get['id'])) {
+        if ($this->transactions->update_transaction($data, ['id' => $get['id']])) {
             return redirect()->to(base_url('/admin/transactions?status=success&message=Transaksi+Berhasil+Dilunaskan'));
         }
     }
@@ -349,7 +349,7 @@ EOF;
             'status' => 'batal'
         ];
 
-        if ($this->transactions->update_transaction($data, $get['id'])) {
+        if ($this->transactions->update_transaction($data, ['id' => $get['id']])) {
             return redirect()->to(base_url('/admin/transactions?status=success&message=Transaksi+Berhasil+Dibatalkan'));
         }
     }
@@ -362,7 +362,7 @@ EOF;
             'status' => 'refund'
         ];
 
-        if ($this->transactions->update_transaction($data, $get['id'])) {
+        if ($this->transactions->update_transaction($data, ['id' => $get['id']])) {
             return redirect()->to(base_url('/admin/transactions?status=success&message=Transaksi+Berhasil+Direfund'));
         }
     }
@@ -561,6 +561,59 @@ EOF;
         echo view('admin/layout/header', $data);
         echo view('admin/zip', $data);
         echo view('admin/layout/footer', $data);
+    }
+
+    public function zip_add()
+    {
+        $data['title'] = "Admin Panel - Tambah Kode Pos";
+        $data['custom_css'] = '<link rel="stylesheet" href="' . base_url('/assets/css/style-admin.css') . '">';
+        echo view('admin/layout/header', $data);
+        echo view('admin/crud/zip_add', $data);
+        echo view('admin/layout/footer', $data);
+    }
+
+    public function zip_edit()
+    {
+        $data['zip'] = $this->zip->getValueZip($this->request->getGet('id'));
+        $data['title'] = "Admin Panel - Edit Kode Pos";
+        $data['custom_css'] = '<link rel="stylesheet" href="' . base_url('/assets/css/style-admin.css') . '">';
+        echo view('admin/layout/header', $data);
+        echo view('admin/crud/zip_edit', $data);
+        echo view('admin/layout/footer', $data);
+    }
+
+    public function zip_insert()
+    {
+        $post = $this->request->getPost();
+
+        $data = [
+            'zip' => $post['zip'],
+            'address' => $post['address']
+        ];
+
+        if ($this->zip->insert_zip($data)) {
+            return redirect()->to(base_url('admin/zip?status=success&message=Kode+Pos+Berhasil+ditambah'));
+        }
+    }
+
+    public function zip_update()
+    {
+        $req = $this->request->getVar();
+
+        $data = [
+            'address' => $req['address']
+        ];
+
+        if ($this->zip->update_zip($data, $req['id'])) {
+            return redirect()->to(base_url('admin/zip?status=success&message=Kode+Pos+Berhasil+diperbaharui'));
+        }
+    }
+
+    public function zip_delete()
+    {
+        if ($this->zip->delete_zip($this->request->getGet('id'))) {
+            return redirect()->to(base_url('admin/zip?status=success&message=Kode+Pos+Berhasil+dihapus'));
+        }
     }
 
     public function user()

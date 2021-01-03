@@ -13,7 +13,7 @@ class TransactionsModel extends Model
         parent::__construct();
 
         $this->ProductsModel = model('App\Models\ProductsModel', false);
-        $this->UserModel = model('App\Models\UserModel', false);
+        $this->UsersModel = model('App\Models\UsersModel', false);
     }
 
     public function getTransactions($id = false, $where = false)
@@ -24,7 +24,7 @@ class TransactionsModel extends Model
             $i = 0;
             foreach ($query->getResultArray() as $row) {
                 $data[$i]['id'] = $row['id'];
-                $data[$i]['buyer'] = $this->UserModel->getUsers($row['buyer']);
+                $data[$i]['buyer'] = $this->UsersModel->getUsers($row['buyer']);
                 $data[$i]['product'] = $this->ProductsModel->getProducts($row['product'])[0];
                 $data[$i]['price'] = $row['price'];
                 $data[$i]['date'] = $row['date'];
@@ -42,7 +42,7 @@ class TransactionsModel extends Model
             $i = 0;
             foreach ($query->getResultArray() as $row) {
                 $data[$i]['id'] = $row['id'];
-                $data[$i]['buyer'] = $this->UserModel->getUsers($row['buyer']);
+                $data[$i]['buyer'] = $this->UsersModel->getUsers($row['buyer']);
                 $data[$i]['product'] = $this->ProductsModel->getProducts($row['product'])[0];
                 $data[$i]['price'] = $row['price'];
                 $data[$i]['date'] = $row['date'];
@@ -71,7 +71,7 @@ class TransactionsModel extends Model
         $i = 0;
         foreach ($query->getResultArray() as $row) {
             $data[$i]['id'] = $row['id'];
-            $data[$i]['buyer'] = $this->UserModel->getUsers($row['buyer']);
+            $data[$i]['buyer'] = $this->UsersModel->getUsers($row['buyer']);
             $data[$i]['product'] = $this->ProductsModel->getProducts($row['product'])[0];
             $data[$i]['price'] = $row['price'];
             $data[$i]['date'] = $row['date'];

@@ -6,7 +6,7 @@ use CodeIgniter\Controller;
 use App\Models\CarouselModel;
 use App\Models\PagesModel;
 use App\Models\TransactionsModel;
-use App\Models\UserModel;
+use App\Models\UsersModel;
 use App\Models\DeliveryModel;
 
 class Home extends BaseController
@@ -18,7 +18,7 @@ class Home extends BaseController
 		$this->carousel = new CarouselModel();
 		$this->pages = new PagesModel();
 		$this->transactions = new TransactionsModel();
-		$this->user = new UserModel();
+		$this->user = new UsersModel();
 		$this->delivery = new DeliveryModel();
 		/* Catatan:
         Apa yang ada di dalam function construct ini nantinya bisa digunakan

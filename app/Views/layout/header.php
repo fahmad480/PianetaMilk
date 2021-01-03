@@ -43,6 +43,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="<?= base_url('/contactus') ?>">Hubungi Kami</a>
                 </li>
+                <?php if (logged_in() && in_groups('admin')) : ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= base_url('/admin') ?>">Admin Page</a>
+                    </li>
+                <?php endif; ?>
             </ul>
             <span>
                 <?php if (logged_in()) : ?>

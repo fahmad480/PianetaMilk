@@ -86,7 +86,7 @@ class Transaction extends BaseController
 <h3>$norek</h3>
 <h4>Atas Nama : Pianeta Milk</h4>
 <h5 class="mb-4">Silahkan transfer dengan nominal <b>Rp $bayar.-</b> ke rekening diatas</h5>
-<a href="$url_bayar"><button class="btn btn-primary">Sudah Bayar</button></a> <a href="$url_reject"><button class="btn btn-danger">Batalkan Transaksi</button></a>
+<a href="$url_bayar" class="btn btn-primary">Sudah Bayar</a> <a href="$url_reject" class="btn btn-danger">Batalkan Transaksi</a>
 EOF;
                 break;
             case "paymentmandiri":
@@ -97,7 +97,7 @@ EOF;
 <h3>$norek</h3>
 <h4>Atas Nama : Pianeta Milk</h4>
 <h5 class="mb-4">Silahkan transfer dengan nominal <b>Rp $bayar.-</b> ke rekening diatas</h5>
-<a href="$url_bayar"><button class="btn btn-primary">Sudah Bayar</button></a> <a href="$url_reject"><button class="btn btn-danger">Batalkan Transaksi</button></a>
+<a href="$url_bayar" class="btn btn-primary">Sudah Bayar</a> <a href="$url_reject" class="btn btn-danger">Batalkan Transaksi</a>
 EOF;
                 break;
             case "paymentbni":
@@ -108,7 +108,7 @@ EOF;
 <h3>$norek</h3>
 <h4>Atas Nama : Pianeta Milk</h4>
 <h5 class="mb-4">Silahkan transfer dengan nominal <b>Rp $bayar.-</b> ke rekening diatas</h5>
-<a href="$url_bayar"><button class="btn btn-primary">Sudah Bayar</button></a> <a href="$url_reject"><button class="btn btn-danger">Batalkan Transaksi</button></a>
+<a href="$url_bayar" class="btn btn-primary">Sudah Bayar</a> <a href="$url_reject" class="btn btn-danger">Batalkan Transaksi</a>
 EOF;
                 break;
             case "paymentbri":
@@ -119,7 +119,7 @@ EOF;
 <h3>$norek</h3>
 <h4>Atas Nama : Pianeta Milk</h4>
 <h5 class="mb-4">Silahkan transfer dengan nominal <b>Rp $bayar.-</b> ke rekening diatas</h5>
-<a href="$url_bayar"><button class="btn btn-primary">Sudah Bayar</button></a> <a href="$url_reject"><button class="btn btn-danger">Batalkan Transaksi</button></a>
+<a href="$url_bayar" class="btn btn-primary">Sudah Bayar</a> <a href="$url_reject" class="btn btn-danger">Batalkan Transaksi</a>
 EOF;
                 break;
             case "paymentovo":
@@ -127,7 +127,7 @@ EOF;
                 $data['payment_content'] = <<<EOF
 <img src="$payment" height="150px" alt="OVO">
 <h5 class="mb-4">Silahkan Scan QR Code diatas menggunakan aplikasi OVO atau eWallet yang mendukung QRIS (<b>Rp $bayar.-</b>)</h5>
-<a href="$url_bayar"><button class="btn btn-primary">Sudah Bayar</button></a> <a href="$url_reject"><button class="btn btn-danger">Batalkan Transaksi</button></a>
+<a href="$url_bayar" class="btn btn-primary">Sudah Bayar</a> <a href="$url_reject" class="btn btn-danger">Batalkan Transaksi</a>
 EOF;
                 break;
             case "paymentdana":
@@ -135,7 +135,7 @@ EOF;
                 $data['payment_content'] = <<<EOF
 <img src="$payment" height="150px" alt="DANA">
 <h5 class="mb-4">Silahkan Scan QR Code diatas menggunakan aplikasi DANA atau eWallet yang mendukung QRIS (<b>Rp $bayar.-</b>)</h5>
-<a href="$url_bayar"><button class="btn btn-primary">Sudah Bayar</button></a> <a href="$url_reject"><button class="btn btn-danger">Batalkan Transaksi</button></a>
+<a href="$url_bayar" class="btn btn-primary">Sudah Bayar</a> <a href="$url_reject" class="btn btn-danger">Batalkan Transaksi</a>
 EOF;
                 break;
             case "paymentgopay":
@@ -143,7 +143,7 @@ EOF;
                 $data['payment_content'] = <<<EOF
 <img src="$payment" height="150px" alt="GoPay">
 <h5 class="mb-4">Silahkan Scan QR Code diatas menggunakan aplikasi GoJek atau eWallet yang mendukung QRIS (<b>Rp $bayar.-</b>)</h5>
-<a href="$url_bayar"><button class="btn btn-primary">Sudah Bayar</button></a> <a href="$url_reject"><button class="btn btn-danger">Batalkan Transaksi</button></a>
+<a href="$url_bayar" class="btn btn-primary">Sudah Bayar</a> <a href="$url_reject" class="btn btn-danger">Batalkan Transaksi</a>
 EOF;
                 break;
             case "paymentalfamart":
@@ -153,7 +153,7 @@ EOF;
 <img src="$payment" height="150px" alt="Alfamart">
 <h3>$norek</h3>
 <h5 class="mb-4">Silahkan lakukan pembayaran sebesar <b>Rp $bayar.-</b> melalui kasir Alfamart</h5>
-<a href="$url_bayar"><button class="btn btn-primary">Sudah Bayar</button></a> <a href="$url_reject"><button class="btn btn-danger">Batalkan Transaksi</button></a>
+<a href="$url_bayar" class="btn btn-primary">Sudah Bayar</a> <a href="$url_reject" class="btn btn-danger">Batalkan Transaksi</a>
 EOF;
                 break;
             case "paymentindomaret":
@@ -163,7 +163,7 @@ EOF;
 <img src="$payment" height="150px" alt="Indomaret">
 <h3>$norek</h3>
 <h5 class="mb-4">Silahkan lakukan pembayaran sebesar <b>Rp $bayar.-</b> melalui kasir Indomaret</h5>
-<a href="$url_bayar"><button class="btn btn-primary">Sudah Bayar</button></a> <a href="$url_reject"><button class="btn btn-danger">Batalkan Transaksi</button></a>
+<a href="$url_bayar" class="btn btn-primary">Sudah Bayar</a> <a href="$url_reject" class="btn btn-danger">Batalkan Transaksi</a>
 EOF;
                 break;
             default:

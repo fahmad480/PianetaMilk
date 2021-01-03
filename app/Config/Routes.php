@@ -71,6 +71,11 @@ $routes->get('/transaction/paid', 'Transaction::payment_paid');
 $routes->get('/transaction/reject', 'Transaction::payment_reject');
 
 
+$routes->get('/admin/zipcode/add', 'Admin::zip_add');
+$routes->get('/admin/zipcode/edit', 'Admin::zip_edit');
+$routes->get('/admin/zipcode/delete', 'Admin::zip_delete');
+
+
 // $routes->group('admin', ['filter' => 'role:admin'], function ($routes) {
 // 	return redirect()->to(base_url());
 // });

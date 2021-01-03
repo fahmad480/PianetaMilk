@@ -14,7 +14,7 @@ class DeliveryModel extends Model
 
         $this->TransactionsModel = model('App\Models\TransactionsModel', false);
         $this->ProductsModel = model('App\Models\ProductsModel', false);
-        $this->UserModel = model('App\Models\UserModel', false);
+        $this->UsersModel = model('App\Models\UsersModel', false);
     }
 
     public function getDelivery()
