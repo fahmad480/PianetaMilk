@@ -13,6 +13,7 @@
                 <th scope="col">Foto</th>
                 <th scope="col">Nama</th>
                 <th scope="col">Email</th>
+                <th scope="col">Alamat</th>
                 <!-- <th scope="col">Action</th> -->
             </tr>
         </thead>
@@ -25,6 +26,7 @@
                     <td><img style="height: 75px; width: 75px; object-fit: cover;" src="<?= base_url($row['profile_pict']) ?>" alt="<?= $row['full_name']; ?>"></td>
                     <td><?= $row['full_name']; ?></td>
                     <td><?= $row['email']; ?></td>
+                    <td><?= $row['address']; ?></td>
                     <!-- <td>
                         <div class="btn-group">
                             <a href="<?= base_url('admin/users/edit?id=' . $row['id']); ?>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>

@@ -12,7 +12,7 @@
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Pembeli</th>
-                <th scope="col">Produk</th>
+                <th scope="col">Produk Yang Dikirim</th>
                 <th scope="col">Tanggal Pengantaran</th>
                 <th scope="col">Status</th>
                 <th scope="col">Komentar</th>

@@ -14,7 +14,7 @@
                 <th scope="col">Gambar</th>
                 <th scope="col">Nama</th>
                 <th scope="col">Harga</th>
-                <th scope="col">Stok</th>
+                <!-- <th scope="col">Stok</th> -->
                 <th scope="col">Status</th>
                 <th scope="col">Action</th>
             </tr>
@@ -28,7 +28,7 @@
                     <td><img height="75px" src="<?= base_url($row['image']) ?>" alt="<?= $row['title']; ?>"></td>
                     <td><?= $row['title']; ?></td>
                     <td><?= $row['price']; ?></td>
-                    <td><?= $row['stock']; ?></td>
+                    <!-- <td><?= $row['stock']; ?></td> -->
                     <td><?= ($row['status'] == 1) ? "Aktif" : "Nonaktif" ?></td>
                     <td>
                         <div class="btn-group">

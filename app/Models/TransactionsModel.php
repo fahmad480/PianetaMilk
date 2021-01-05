@@ -91,7 +91,7 @@ class TransactionsModel extends Model
 
     public function getActiveOrNotSubscribtion()
     {
-        $q = "SELECT * FROM " . $this->table . " WHERE DATE(expired_date) >= '" . date('Y-m-d') . "' AND buyer = '" . user()->toArray()['id'] . "'";
+        $q = "SELECT * FROM " . $this->table . " WHERE DATE(expired_date) >= '" . date('Y-m-d') . "' AND status = 'lunas' AND buyer = '" . user()->toArray()['id'] . "'";
         $query = count($this->db->query($q)->getResultArray());
 
         return $query;
