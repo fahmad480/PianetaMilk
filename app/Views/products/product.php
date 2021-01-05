@@ -20,7 +20,7 @@
                 ?>
             </p>
             <h3>Rp <?= number_format($price, 2); ?> / refill</h3>
-            <p><i>
+            <!-- <p><i>
                     <?php
                     if ($stock > 1) {
                         echo 'Stock tersedia';
@@ -28,7 +28,7 @@
                         echo 'Stock habis';
                     }
                     ?>
-                </i></p>
+                </i></p> -->
             <?php
             if (logged_in()) :
                 if (isset(user()->toArray()['address'])) {
@@ -106,28 +106,30 @@
             <div class="frame" id="review_frame">
                 <?php
                 // dd($review_data[0]['member']);
-                foreach ($review_data as $key => $row) :
+                if ($review_data != false) :
+                    foreach ($review_data as $key => $row) :
                 ?>
-                    <div class="media text-muted pt-3">
-                        <img class="mr-2" width="55" height="55" style="object-fit: cover; border-radius: 50%;" src="<?= base_url($row['member']['profile_pict']); ?>" alt="profile">
-                        <div class="media-body pb-3 mb-0">
-                            <div>
-                                <strong class="text-gray-dark"><?= $row['member']['full_name']; ?></strong><br>
-                                <?php
-                                for ($i = 1; $i <= 5; $i++) {
-                                    if ($i <= round($row['stars'])) {
-                                        echo '<i class="fa fa-star"></i>';
-                                    } else {
-                                        echo '<i class="fa fa-star-o"></i>';
+                        <div class="media text-muted pt-3">
+                            <img class="mr-2" width="55" height="55" style="object-fit: cover; border-radius: 50%;" src="<?= base_url($row['member']['profile_pict']); ?>" alt="profile">
+                            <div class="media-body pb-3 mb-0">
+                                <div>
+                                    <strong class="text-gray-dark"><?= $row['member']['full_name']; ?></strong><br>
+                                    <?php
+                                    for ($i = 1; $i <= 5; $i++) {
+                                        if ($i <= round($row['stars'])) {
+                                            echo '<i class="fa fa-star"></i>';
+                                        } else {
+                                            echo '<i class="fa fa-star-o"></i>';
+                                        }
                                     }
-                                }
-                                ?>
+                                    ?>
+                                </div>
+                                <p class="d-block"><?= $row['review']; ?></p>
                             </div>
-                            <p class="d-block"><?= $row['review']; ?></p>
                         </div>
-                    </div>
-                    <hr>
-                <?php endforeach; ?>
+                        <hr>
+                <?php endforeach;
+                endif; ?>
                 <hr>
             </div>
         </div>

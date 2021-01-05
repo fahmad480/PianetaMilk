@@ -79,7 +79,11 @@ class ProductsModel extends Model
             $data[$i]['review'] = $row['review'];
             $i++;
         }
-        return $data;
+        if (isset($data)) {
+            return $data;
+        } else {
+            return false;
+        }
     }
 
     public function getCountStars($id_product)
