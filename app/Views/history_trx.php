@@ -1,6 +1,6 @@
 <div class="container mb-4">
     <center>
-        <h1 class="mt-4 mb-4">Sejarah Transaksi</h1>
+        <h1 class="mt-4 mb-4">Riwayat Transaksi</h1>
     </center>
     <table class="table mt-4">
         <thead class="thead-dark">
@@ -35,7 +35,7 @@
         </tbody>
     </table>
     <center>
-        <h1 class="mt-5 mb-4">Sejarah Pengiriman</h1>
+        <h1 class="mt-5 mb-4">Riwayat Pengiriman</h1>
     </center>
     <table class="table">
         <thead class="thead-dark">

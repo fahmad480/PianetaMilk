@@ -61,7 +61,7 @@
                                     Ubah Data Akun
                                 </a>
                                 <a href="<?= base_url('history_trx'); ?>" class="dropdown-item">
-                                    Sejarah Transaksi
+                                    Riwayat Transaksi
                                 </a>
                                 <a href="<?= base_url('logout'); ?>" class="dropdown-item">
                                     Logout

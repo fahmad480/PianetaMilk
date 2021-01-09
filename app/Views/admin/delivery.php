@@ -12,10 +12,10 @@
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Pembeli</th>
-                <th scope="col">Produk Yang Dikirim</th>
+                <!-- <th scope="col">Produk Yang Dikirim</th> -->
                 <th scope="col">Tanggal Pengantaran</th>
-                <th scope="col">Status</th>
-                <th scope="col">Komentar</th>
+                <th scope="col">Status Pengantaran</th>
+                <th scope="col">Komentar Kurir/Pelanggan</th>
                 <th scope="col">Action</th>
             </tr>
         </thead>
@@ -26,7 +26,7 @@
                 <tr>
                     <th scope="row">#<?= $row['id'] ?></th>
                     <td><?= $row['trx']['buyer']['full_name']; ?></td>
-                    <td><?= $row['trx']['product']['title']; ?></td>
+                    <!-- <td><?= $row['trx']['product']['title']; ?></td> -->
                     <td><?= $row['date']; ?></td>
                     <td><?= ($row['status'] == 1) ? "Berhasil" : "Gagal" ?></td>
                     <td><?= $row['comment']; ?></td>
