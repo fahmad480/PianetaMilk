@@ -1,3 +1,8 @@
+# Projek Rekayasa Web
+152018038 Dias Pratama A
+
+152018070 Faraaz Ahmad Permadi
+
 # CodeIgniter 4 Framework
 
 ## What is CodeIgniter?
